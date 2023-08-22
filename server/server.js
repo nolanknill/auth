@@ -3,10 +3,12 @@ const app = express();
 const PORT = 8080;
 require("dotenv").config();
 const authRoutes = require("./routes/auth");
+const postRoutes = require("./routes/posts");
+
 
 app.use(express.json());
 app.use("/login", authRoutes);
-// app.use("/posts", postRoutes);
+app.use("/posts", postRoutes);
 
 
 app.listen(PORT, () => {

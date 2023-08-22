@@ -1,4 +1,5 @@
 require('dotenv').config();
+const bcrypt = require('bcrypt');
 
 let usersData = [
   {
@@ -14,6 +15,15 @@ let usersData = [
     password: "password"
   }
 ];
+
+// hash passwords
+usersData = usersData.map(user => ({
+  ...user,
+  password: bcrypt.hashSync(
+    user.password, 
+    Number(process.env.BCRYPT_SALT_ROUNDS)
+  )
+}));
 
 const postsData = [
   {

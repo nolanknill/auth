@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const knex = require('knex')(require('../knexfile'));
 const router = express.Router();
 
@@ -28,19 +29,14 @@ router.post("/", (req, res) => {
             // Matching email, check password!
             const matchingUser = foundUsers[0];
 
-            // Invalid password
-            if (matchingUser.password !== password) {
+            const isValidPassword = bcrypt.compareSync(password, matchingUser.password);
+
+            if (!isValidPassword) {
                 return res.status(401).json({
                     error: "Invalid login credentials"
                 });
             }
-        
-            // Valid login: generate a JWT
-            // ✅ install jsonwebtoken library
-            // ✅ require jsonwebtoken in this file
-            // ✅ use jwt.sign to create the token
-            // ✅ respond with the token
-            
+
             const token = jwt.sign(
                 { 
                     user_id: matchingUser.id 
@@ -55,7 +51,7 @@ router.post("/", (req, res) => {
                 token: token,
                 message: "Successfully logged in, enjoy your stay"
             });
-        });
+        })
 });
 
 module.exports = router;

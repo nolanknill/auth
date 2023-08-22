@@ -1,7 +1,8 @@
 # Lecture: Client-Side Auth
 
 ## Usage
-Start with the server installed and running. Add client side code for logging in, storing the JWT, and then showing a hidden page containing the user posts.
+Start with client side code for logging in, storing the JWT, and then showing a hidden page containing the user posts.
+Add server side code for login, creating the JWT, then verifying JWT on subsequent requests to endpoints requiring authorization
 
 ## Setup
 Install and run client and server
@@ -12,15 +13,19 @@ Install and run client and server
 
 `cd ../server`
 
-`cp .env.example .env` Note: You can update the JWT_SECRET_KEY valie in .env
+`cp .env.example .env`
 
-`npm install & npm start`
+`npm install`
+
+`npm run migrate && npm run seed`
+
+`npm run dev`
 
 ## Authentication
-You can login using the following accounts defined in /server/server.js users variable:
+You can login using the following accounts defined in /server/seeds/user_and_post_seeder.js usersData variable:
 
 
 |Username|Password  |
 |--|--|
-| Nolan | agileprocess |
-| Mike | stringerbell |
+| Nolan | password |
+| Mike | password |
